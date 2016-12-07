@@ -69,8 +69,10 @@ var makeCall = function(){
 properly. */
 
 var makeCounter = function(){
+  var counter = 0;
   return function(){
-    
+    counter++;
+    return counter;
   }
 }
 
@@ -102,12 +104,17 @@ function is responsible for decrementing the value by one. You will need to use
 the module pattern to achieve this. */
 
 function counterFactory(value) {
-
-  // Code here.
-
-
-  return {
+var startVal = value;
+return {
+  inc: function(){
+    startVal++;
+    return startVal;
+  },
+  dec: function(){
+    startVal--;
+    return startVal;
   }
+}
 }
 
 
@@ -134,11 +141,13 @@ function motivation(firstname, lastname){
 
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
-  // code message function here.
+  var message = function(){
+    return welcomeText + firstname + " " + lastname + ".";
+  }
 
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
+  return message();
 
 }
 
@@ -177,13 +186,15 @@ var module = (function() {
 	// outside our lexical scope
 
   return {
-    // Code here.
+    publicMethod: function(){
+      return privateMethod();
+    }
   };
 
 })();
 
 // Uncomment this after you create your public method
-//   module.publicMethod();
+  module.publicMethod();
 
 
 
@@ -206,6 +217,7 @@ then 3, etc). Run this code in your console to see what the output is. */
 // To make this code work you will need to create a new scope for every iteration.
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
+    newScope(i);
     setTimeout(function() {
       console.log(i);
     }, i * 1000)
@@ -216,6 +228,7 @@ function timeOutCounter() {
   }
 }
 timeOutCounter();
+
 
 
 
